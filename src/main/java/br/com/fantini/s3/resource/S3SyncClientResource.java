@@ -38,7 +38,7 @@ public class S3SyncClientResource extends CommonResource {
         if (formData.filename == null || formData.filename.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-
+        
         if (formData.mimetype == null || formData.mimetype.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }

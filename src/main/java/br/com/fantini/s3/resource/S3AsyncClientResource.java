@@ -1,6 +1,7 @@
 package br.com.fantini.s3.resource;
 
 import java.nio.ByteBuffer;
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +31,17 @@ import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 @Path("/async-s3")
 public class S3AsyncClientResource extends CommonResource {
     
     @Inject
     S3AsyncClient s3;
+
+    @Inject 
+    S3Presigner s3Presigner;
 
     @POST
     @Path("upload")
@@ -73,6 +79,22 @@ public class S3AsyncClientResource extends CommonResource {
                         .map(S3AsyncClientResource::toBuffer),
                 response -> Map.of("Content-Disposition", List.of("attachment;filename=" + objectKey), "Content-Type",
                         List.of(response.response().contentType())));
+    }
+
+    @GET
+    @Path("/url/signed/{objectKey}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Uni<Response> signedUrl(String objectKey) {
+
+        return Uni.createFrom().item(Response.ok(
+            s3Presigner.presignGetObject(
+                GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .getObjectRequest(buildGetRequest(objectKey))
+                    .build()
+            ).url()
+        ).build());
+        
     }
 
     @GET
