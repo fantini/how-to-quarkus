@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import org.jboss.resteasy.reactive.RestMulti;
 import org.reactivestreams.Publisher;
 
-import br.com.fantini.s3.CommonResource;
-import br.com.fantini.s3.FileObject;
-import br.com.fantini.s3.FormData;
+import br.com.fantini.s3.commons.CommonResource;
+import br.com.fantini.s3.commons.FileObject;
+import br.com.fantini.s3.commons.FormData;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.buffer.Buffer;
@@ -94,7 +94,7 @@ public class S3AsyncClientResource extends CommonResource {
                     .build()
             ).url()
         ).build());
-        
+
     }
 
     @GET

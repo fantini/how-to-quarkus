@@ -5,9 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.fantini.s3.CommonResource;
-import br.com.fantini.s3.FileObject;
-import br.com.fantini.s3.FormData;
+import br.com.fantini.s3.commons.CommonResource;
+import br.com.fantini.s3.commons.FileObject;
+import br.com.fantini.s3.commons.FormData;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -68,7 +68,7 @@ public class S3SyncClientResource extends CommonResource {
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
         response.header("Content-Type", objectBytes.response().contentType());
         return response.build();
-        
+
     }
 
     @GET
