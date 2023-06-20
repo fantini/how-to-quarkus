@@ -49,9 +49,7 @@ If you want to learn more about building native executables, please consult http
 
 ## Related Guides
 
-- REST Client Classic ([guide](https://quarkus.io/guides/rest-client)): Call REST services
-- RESTEasy Classic Multipart ([guide](https://quarkus.io/guides/rest-json#multipart-support)): Multipart support for RESTEasy Classic
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing Jakarta REST and more
+- QUARKUS AMAZON SERVICES ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-s3.html)): S3
 
 ## Provided Code
 
