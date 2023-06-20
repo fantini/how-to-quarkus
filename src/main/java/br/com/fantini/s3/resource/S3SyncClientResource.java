@@ -1,5 +1,6 @@
 package br.com.fantini.s3.resource;
 
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import br.com.fantini.s3.CommonResource;
 import br.com.fantini.s3.FileObject;
 import br.com.fantini.s3.FormData;
+import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -23,12 +25,17 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 @Path("/s3")
 public class S3SyncClientResource extends CommonResource {
     
     @Inject
     S3Client s3;
+
+    @Inject 
+    S3Presigner s3Presigner;
 
     @POST
     @Path("upload")
@@ -61,6 +68,22 @@ public class S3SyncClientResource extends CommonResource {
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
         response.header("Content-Type", objectBytes.response().contentType());
         return response.build();
+    }
+
+    @GET
+    @Path("/url/signed/{objectKey}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response signedUrl(String objectKey) {
+
+        return Response.ok(
+            s3Presigner.presignGetObject(
+                GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .getObjectRequest(buildGetRequest(objectKey))
+                    .build()
+            ).url()
+        ).build();
+        
     }
 
     @GET
