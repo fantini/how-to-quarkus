@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import br.com.fantini.s3.CommonResource;
 import br.com.fantini.s3.FileObject;
 import br.com.fantini.s3.FormData;
-import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -63,11 +62,13 @@ public class S3SyncClientResource extends CommonResource {
     @Path("download/{objectKey}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(String objectKey) {
+        
         ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(buildGetRequest(objectKey));
         ResponseBuilder response = Response.ok(objectBytes.asUtf8String());
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
         response.header("Content-Type", objectBytes.response().contentType());
         return response.build();
+        
     }
 
     @GET
@@ -89,9 +90,9 @@ public class S3SyncClientResource extends CommonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<FileObject> listFiles() {
+        
         ListObjectsRequest listRequest = ListObjectsRequest.builder().bucket(bucketName).build();
 
-        //HEAD S3 objects to get metadata
         return s3.listObjects(listRequest).contents().stream()
                 .map(FileObject::from)
                 .sorted(Comparator.comparing(FileObject::getObjectKey))
