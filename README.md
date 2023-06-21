@@ -29,7 +29,7 @@ aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://
 
 ### AMQP 
 
-#### Docker-Compose
+#### AMQP Docker-Compose
 
 ```
 version: '2'
@@ -50,6 +50,11 @@ networks:
     driver: bridge
 volumes:
   activemq:
+```
+#### AMQP Services
+
+```shell script
+docker-compose -f compose.yaml up -d
 ```
 
 ## Related Guides
