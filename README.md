@@ -29,6 +29,7 @@ aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://
 
 ## Related Guides
 
-- QUARKUS AMAZON SERVICES ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-s3.html)): S3
-- S3 CELEPAR ([guide](https://celepar.wikis.pr.gov.br/plataformadesenvolvimento/wiki/S3_Defini%C3%A7%C3%B5es)): S3 Definições
+- QUARKUS AMAZON SERVICES ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-s3.html))
+- S3 CELEPAR ([guide](https://celepar.wikis.pr.gov.br/plataformadesenvolvimento/wiki/S3_Defini%C3%A7%C3%B5es))
+- QUARKUS AMQP ([guide](https://quarkus.io/guides/amqp))
 
