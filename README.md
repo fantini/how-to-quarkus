@@ -30,7 +30,7 @@ aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://
 ### AMQP Services
 
 ```
-# Docker-Compose
+# Docker-Compose (compose.yaml)
 version: '2'
 services:
   artemis:
