@@ -2,10 +2,8 @@ package br.com.fantini.amqp.resource;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import br.com.fantini.amqp.commons.Message;
-import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -27,11 +25,6 @@ public class MessageResource {
     public Response send(Message message) {
         emitter.send(message);
         return Response.accepted().build();
-    }
-
-    @Incoming("messages-in")
-    public void receive(JsonObject json) {
-        System.out.println(json.mapTo(Message.class).getPayload());
     }
 
 }
