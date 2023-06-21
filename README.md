@@ -60,4 +60,5 @@ docker-compose -f compose.yaml up -d
 - QUARKUS AMAZON SERVICES ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-s3.html))
 - S3 CELEPAR ([guide](https://celepar.wikis.pr.gov.br/plataformadesenvolvimento/wiki/S3_Defini%C3%A7%C3%B5es))
 - QUARKUS AMQP ([guide](https://quarkus.io/guides/amqp))
+- RESTEASY ([guide](https://quarkus.io/guides/resteasy-reactive))
 

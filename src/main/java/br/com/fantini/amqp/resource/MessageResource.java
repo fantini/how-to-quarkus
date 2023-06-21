@@ -2,8 +2,11 @@ package br.com.fantini.amqp.resource;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.jboss.resteasy.reactive.RestResponse;
 
 import br.com.fantini.amqp.commons.Message;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.reactive.messaging.MutinyEmitter;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -17,14 +20,13 @@ public class MessageResource {
     
     @Inject
     @Channel("messages-out")
-    Emitter<Message> emitter;
+    MutinyEmitter<Message> emitter;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response send(Message message) {
-        emitter.send(message);
-        return Response.accepted().build();
+    public Uni<Response> send(Message message) {
+        return Uni.createFrom().item(Response.accepted().build()).call(() -> emitter.send(message));
     }
 
 }
