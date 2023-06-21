@@ -27,6 +27,29 @@ aws configure --profile localstack
 aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:4566
 ```
 
+### AMQP Docker-Compose
+
+```
+version: '2'
+services:
+  artemis:
+    image: webcenter/activemq
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "5672:5672"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: quarkus
+      ACTIVEMQ_ADMIN_PASSWORD: quarkus
+    networks:
+      - mq-network
+networks:
+  mq-network:
+    driver: bridge
+volumes:
+  activemq:
+```
+
 ## Related Guides
 
 - QUARKUS AMAZON SERVICES ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-s3.html))
