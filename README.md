@@ -27,11 +27,10 @@ aws configure --profile localstack
 aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:4566
 ```
 
-### AMQP 
-
-#### AMQP Docker-Compose
+### AMQP Services
 
 ```
+# Docker-Compose
 version: '2'
 services:
   artemis:
@@ -51,7 +50,6 @@ networks:
 volumes:
   activemq:
 ```
-#### AMQP Services
 
 ```shell script
 docker-compose -f compose.yaml up -d
