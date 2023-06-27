@@ -10,9 +10,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class MessageBusiness {
     /*
      * @Blocking: 
-     *  - identifica que metodo ira realizar operacoes bloqueantes e permitira sua execucao em um worker separado
+     *  - identifica que o metodo ira realizar operacoes bloqueantes e permitira sua execucao em um worker separado
      * @ActivateRequestContext:
-     *  - deve ser utilizado caso as operacoes envolvidades necessitem do contexto. Exemplo: acesso ao DB
+     *  - deve ser utilizado caso as operacoes envolvidas necessitem do contexto. Exemplo: acesso ao DB
      */
     @Incoming("messages-in")
     @Blocking
